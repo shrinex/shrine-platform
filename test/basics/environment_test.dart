@@ -9,7 +9,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shrine_platform/api/models/User.dart';
+import 'package:shrine_platform/api/types/user.dart';
 import 'package:shrine_platform/basics/environment.dart';
 import 'package:shrine_platform/basics/globals.dart';
 import 'package:shrine_platform/basics/services.dart';
@@ -63,7 +63,7 @@ void main() {
       expect(Globals.apiService.bearerToken!.rawValue, "dead-bearer-token");
     });
 
-    test("logout() clears all user session", () {
+    test("logout() clears all user session", () async {
       final userDefaults = MockKeyValueStore();
       final envJson = _stubEnvJson();
 
@@ -75,7 +75,7 @@ void main() {
         userDefaults: userDefaults,
       );
 
-      env.logout();
+      await env.logout();
 
       expect(env.loggedIn, false);
       expect(env.currentUser, null);
